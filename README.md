@@ -135,4 +135,5 @@ erDiagram
 
 ## 실행화면
 
-![실행화면](image-2.png)
+![실행화면](assets/images/image-2.png)
+![alt text](assets/images/image-3.png)
