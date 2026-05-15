@@ -6,10 +6,13 @@ export function createInitialState() {
     cards: [],
     openedIds: [],
     hintIds: [],
+    bingoRows: [],
     tries: 0,
     matches: 0,
     startedAt: null,
-    elapsedSeconds: 0
+    elapsedSeconds: 0,
+    timeLimitActive: false,
+    timeRemainingSeconds: null
   };
 }
 
@@ -42,6 +45,26 @@ export function reducer(currentState, action) {
         hintIds: []
       };
 
+    case ACTION.ACKNOWLEDGE_BINGO:
+      return acknowledgeBingo(currentState, action.rows);
+
+    case ACTION.START_TIME_LIMIT:
+      return startTimeLimit(currentState);
+
+    case ACTION.STOP_TIME_LIMIT:
+      return stopTimeLimit(currentState);
+
+    case ACTION.UPDATE_TIME_LIMIT:
+      return updateTimeLimit(currentState, action.remainingSeconds);
+
+    case ACTION.END_GAME:
+      return {
+        ...currentState,
+        phase: PHASE.ENDED,
+        timeLimitActive: false,
+        timeRemainingSeconds: null
+      };
+
     default:
       return currentState;
   }
@@ -53,6 +76,25 @@ export function getOpenedCards(currentState) {
 
 export function isPair(cards) {
   return cards.length === 2 && cards[0]?.fruit === cards[1]?.fruit;
+}
+
+export function findNewBingoRows(currentState) {
+  const nextRows = [];
+
+  for (let rowIndex = 0; rowIndex < CONFIG.boardSize; rowIndex += 1) {
+    if (currentState.bingoRows.includes(rowIndex)) {
+      continue;
+    }
+
+    const startIndex = rowIndex * CONFIG.boardSize;
+    const rowCards = currentState.cards.slice(startIndex, startIndex + CONFIG.boardSize);
+
+    if (rowCards.length === CONFIG.boardSize && rowCards.every((card) => card.matched)) {
+      nextRows.push(rowIndex);
+    }
+  }
+
+  return nextRows;
 }
 
 function createDeck() {
@@ -126,6 +168,46 @@ function resolveMatch(currentState) {
   };
 }
 
+function acknowledgeBingo(currentState, rows) {
+  const nextRows = Array.isArray(rows) ? rows : [];
+
+  return {
+    ...currentState,
+    bingoRows: Array.from(new Set([...currentState.bingoRows, ...nextRows]))
+  };
+}
+
+function startTimeLimit(currentState) {
+  if (currentState.phase !== PHASE.PLAYING) {
+    return currentState;
+  }
+
+  return {
+    ...currentState,
+    timeLimitActive: true,
+    timeRemainingSeconds: CONFIG.timeLimitSeconds
+  };
+}
+
+function stopTimeLimit(currentState) {
+  return {
+    ...currentState,
+    timeLimitActive: false,
+    timeRemainingSeconds: null
+  };
+}
+
+function updateTimeLimit(currentState, remainingSeconds) {
+  if (!currentState.timeLimitActive) {
+    return currentState;
+  }
+
+  return {
+    ...currentState,
+    timeRemainingSeconds: Math.max(0, remainingSeconds)
+  };
+}
+
 function resolveMismatch(currentState) {
   const openedIds = new Set(currentState.openedIds);
 
@@ -156,4 +238,3 @@ function showHint(currentState) {
     hintIds
   };
 }
-

@@ -42,6 +42,8 @@ button {
 
 .header-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   gap: 8px;
 }
 
@@ -96,7 +98,7 @@ h1 {
 
 .scoreboard {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 8px;
   margin-bottom: clamp(8px, 1.5dvh, 14px);
 }
@@ -135,7 +137,7 @@ h1 {
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: clamp(6px, 1.2dvh, 10px);
   width: min(100%, calc(100dvh - 250px), 560px);
   margin: 0 auto;
@@ -232,7 +234,7 @@ h1 {
   }
 
   .scoreboard {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 4px;
   }
 

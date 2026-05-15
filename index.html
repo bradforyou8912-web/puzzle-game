@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TestGame03 Fruit Memory Puzzle</title>
+  <title>Puzzle Game</title>
   <link rel="icon" href="./favicon.ico" sizes="any">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
@@ -14,10 +14,11 @@
     <header class="game-header">
       <div>
         <p class="eyebrow">Fruit Memory Puzzle</p>
-        <h1 id="gameTitle">TestGame03</h1>
+        <h1 id="gameTitle">Puzzle Game</h1>
       </div>
       <div class="header-actions">
         <button id="hintButton" class="secondary-button" type="button">힌트</button>
+        <button id="timeLimitButton" class="secondary-button" type="button">제한시간</button>
         <button id="restartButton" class="primary-button" type="button">새 게임</button>
       </div>
     </header>
@@ -30,7 +31,7 @@
       </div>
       <div>
         <span>성공</span>
-        <strong><span id="matchCount">0</span> / 8</strong>
+        <strong><span id="matchCount">0</span> / <span id="totalMatchCount">18</span></strong>
       </div>
       <div>
         <span>상태</span>
@@ -39,6 +40,10 @@
       <div>
         <span>시간</span>
         <strong id="elapsedTime">00:00</strong>
+      </div>
+      <div>
+        <span>제한시간</span>
+        <strong id="timeLimitStatus">없음</strong>
       </div>
       <div>
         <span>최고 기록</span>
@@ -53,8 +58,8 @@
         class="game-board"
         role="grid"
         aria-label="과일 카드 맞추기 보드"
-        aria-rowcount="4"
-        aria-colcount="4"
+        aria-rowcount="6"
+        aria-colcount="6"
       ></div>
     </section>
 

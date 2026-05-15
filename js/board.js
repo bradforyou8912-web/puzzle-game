@@ -6,8 +6,11 @@ export function createElements() {
     board: document.querySelector("#gameBoard"),
     restartButton: document.querySelector("#restartButton"),
     hintButton: document.querySelector("#hintButton"),
+    timeLimitButton: document.querySelector("#timeLimitButton"),
     tryCount: document.querySelector("#tryCount"),
     matchCount: document.querySelector("#matchCount"),
+    totalMatchCount: document.querySelector("#totalMatchCount"),
+    timeLimitStatus: document.querySelector("#timeLimitStatus"),
     gameStatus: document.querySelector("#gameStatus"),
     elapsedTime: document.querySelector("#elapsedTime"),
     bestRecord: document.querySelector("#bestRecord"),
@@ -26,10 +29,16 @@ export function render(elements, currentState) {
 export function renderScoreboard(elements, currentState) {
   elements.tryCount.textContent = String(currentState.tries);
   elements.matchCount.textContent = String(currentState.matches);
-  elements.gameStatus.textContent = getPhaseLabel(currentState.phase);
+  elements.totalMatchCount.textContent = String(CONFIG.fruits.length);
+  elements.gameStatus.textContent = getPhaseLabel(currentState.phase) ?? "게임 종료";
   elements.elapsedTime.textContent = formatSeconds(currentState.elapsedSeconds);
+  elements.timeLimitStatus.textContent = currentState.timeLimitActive
+    ? formatSeconds(currentState.timeRemainingSeconds)
+    : "없음";
   elements.bestRecord.textContent = formatBestRecord(loadBestRecord());
   elements.hintButton.disabled = currentState.phase !== PHASE.PLAYING || currentState.openedIds.length > 0;
+  elements.timeLimitButton.textContent = currentState.timeLimitActive ? "중지" : "제한시간";
+  elements.timeLimitButton.disabled = currentState.phase !== PHASE.PLAYING && !currentState.timeLimitActive;
 }
 
 function renderBoard(elements, currentState) {
