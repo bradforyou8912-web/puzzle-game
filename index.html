@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TestGame03 Fruit Memory Puzzle</title>
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <!-- 전체 게임 화면을 감싸는 최상위 영역입니다. -->
+  <main class="game" aria-labelledby="gameTitle">
+    <!-- 게임 제목과 새 게임 버튼이 있는 헤더입니다. -->
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">Fruit Memory Puzzle</p>
+        <h1 id="gameTitle">TestGame03</h1>
+      </div>
+      <div class="header-actions">
+        <button id="hintButton" class="secondary-button" type="button">힌트</button>
+        <button id="restartButton" class="primary-button" type="button">새 게임</button>
+      </div>
+    </header>
+
+    <!-- 시도 횟수, 맞춘 쌍 개수, 시간, 현재 최고 기록을 보여주는 정보 영역입니다. -->
+    <section class="scoreboard" aria-label="게임 정보">
+      <div>
+        <span>시도</span>
+        <strong id="tryCount">0</strong>
+      </div>
+      <div>
+        <span>성공</span>
+        <strong><span id="matchCount">0</span> / 8</strong>
+      </div>
+      <div>
+        <span>상태</span>
+        <strong id="gameStatus">진행중</strong>
+      </div>
+      <div>
+        <span>시간</span>
+        <strong id="elapsedTime">00:00</strong>
+      </div>
+      <div>
+        <span>최고 기록</span>
+        <strong id="bestRecord">없음</strong>
+      </div>
+    </section>
+
+    <!-- 4x4 카드 버튼들이 JavaScript로 생성되어 들어가는 퍼즐 보드입니다. -->
+    <section class="board-section" aria-label="4x4 과일 퍼즐 보드">
+      <div
+        id="gameBoard"
+        class="game-board"
+        role="grid"
+        aria-label="과일 카드 맞추기 보드"
+        aria-rowcount="4"
+        aria-colcount="4"
+      ></div>
+    </section>
+
+    <!-- 모든 과일 쌍을 맞췄을 때만 표시되는 클리어 메시지입니다. -->
+    <section id="clearPanel" class="clear-panel" aria-live="polite" hidden>
+      <h2>클리어!</h2>
+      <p><strong id="finalTryCount">0</strong>번의 시도, <strong id="finalTime">00:00</strong> 만에 모든 과일을 맞췄습니다.</p>
+    </section>
+  </main>
+
+  <!-- 게임 로직은 별도 JavaScript 파일에서 관리합니다. -->
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

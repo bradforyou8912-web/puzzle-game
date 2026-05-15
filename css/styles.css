@@ -1,0 +1,261 @@
+:root {
+  font-family: Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: #17221e;
+  background: #eef4f1;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+.game {
+  width: min(100% - 32px, 780px);
+  height: 100dvh;
+  margin: 0 auto;
+  padding: clamp(10px, 2dvh, 20px) 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  align-content: start;
+}
+
+.game-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: clamp(8px, 1.5dvh, 14px);
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: #2b715b;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(30px, 6dvh, 56px);
+  line-height: 1;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 38px;
+  border: 0;
+  border-radius: 8px;
+  padding: 0 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button {
+  background: #315f9d;
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  background: #274d7f;
+}
+
+.secondary-button {
+  border: 1px solid #c7d6d0;
+  background: #ffffff;
+  color: #285a4a;
+}
+
+.secondary-button:hover {
+  background: #f2faf6;
+}
+
+.secondary-button:disabled {
+  color: #8a9692;
+  cursor: default;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-bottom: clamp(8px, 1.5dvh, 14px);
+}
+
+.scoreboard div {
+  min-height: 56px;
+  border: 1px solid #d4dfda;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+}
+
+.scoreboard span {
+  display: block;
+  margin-bottom: 6px;
+  color: #65736e;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.scoreboard strong {
+  font-size: clamp(18px, 3vw, 24px);
+}
+
+.board-section {
+  min-height: 0;
+  border: 1px solid #cad8d2;
+  border-radius: 8px;
+  padding: clamp(8px, 1.5dvh, 12px);
+  background: #ffffff;
+  box-shadow: 0 18px 44px rgba(24, 35, 31, 0.1);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(6px, 1.2dvh, 10px);
+  width: min(100%, calc(100dvh - 250px), 560px);
+  margin: 0 auto;
+}
+
+.card {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 8px;
+  background: #2b715b;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.card:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 4px solid #f0c85c;
+  outline-offset: 3px;
+}
+
+.card.is-open,
+.card.is-hinted,
+.card.is-matched {
+  background: #fff6df;
+  color: #17231e;
+  box-shadow: inset 0 0 0 2px #f2cf78;
+}
+
+.card.is-hinted {
+  box-shadow: inset 0 0 0 4px #315f9d;
+}
+
+.card.is-matched {
+  background: #e9fff3;
+  box-shadow: inset 0 0 0 2px #7bc79d;
+  cursor: default;
+}
+
+.card:disabled {
+  cursor: default;
+}
+
+.card-symbol {
+  font-size: clamp(28px, 7dvh, 58px);
+  line-height: 1;
+}
+
+.card-back {
+  font-size: clamp(22px, 5dvh, 40px);
+  font-weight: 800;
+}
+
+.clear-panel {
+  margin-top: 8px;
+  border: 1px solid #b7ddc8;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #f1fff7;
+}
+
+.clear-panel h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.clear-panel p {
+  margin: 0;
+  color: #40524b;
+}
+
+@media (max-width: 560px) {
+  .game-header {
+    align-items: end;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .header-actions {
+    flex-direction: row;
+    flex-shrink: 0;
+    gap: 6px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+
+  .scoreboard {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+
+  .scoreboard div {
+    min-height: 46px;
+    padding: 6px 4px;
+  }
+
+  .scoreboard span {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  .scoreboard strong {
+    font-size: 14px;
+  }
+
+  .board-section {
+    padding: 8px;
+  }
+
+  .game-board {
+    width: min(100%, calc(100dvh - 210px));
+    gap: 6px;
+  }
+}
